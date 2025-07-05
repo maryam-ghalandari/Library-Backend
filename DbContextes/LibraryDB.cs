@@ -14,8 +14,8 @@ namespace novin_library_backend.DbContextes
         public DbSet<Borrow> Borrows { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlite(@"Data source=DBFiles\Librarydb.sqlite");
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlite(@"Data Source=DBFiles\librarydb.sqlite");
         }
     }
 }
