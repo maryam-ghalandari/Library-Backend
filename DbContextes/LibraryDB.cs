@@ -16,6 +16,6 @@ namespace novin_library_backend.DbContextes
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlite(@"Data Source=DBFiles\librarydb.sqlite");
-        }
+       }
     }
 }

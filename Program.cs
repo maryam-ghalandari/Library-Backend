@@ -1,12 +1,12 @@
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices;
+using novin_library_backend.DbContextes;
+using novin_library_backend.Entities.Base;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -14,28 +14,88 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapGet("books/list", () =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    using var db = new LibraryDB();
+    return db.Books.ToList();
+});
+app.MapPost("books/creat", (Book book) =>
+{
+    using var db = new LibraryDB();
+    db.Books.Add(book);
+    db.SaveChanges();
+    return "Book created!";
+});
+app.MapPut("books/update/{id}", (int id, Book book) =>
+{
+    using var db = new LibraryDB();
+    var b = db.Books.Find(id);
+    if (b == null)
+    {
+        return "لطفا مقدار صحیح را وارد کنیذ";
+    }
+    b.Title = book.Title;
+    b.Writer = book.Writer;
+    b.Publisher = book.Publisher;
+    b.Price = book.Price;
+    db.SaveChanges();
+    return "Book updated!";
+});
+app.MapDelete("books/remove/{id}", (int id) =>
+{
+    using var db = new LibraryDB();
+    var b = db.Books.Find(id);
+    if (b == null)
+    {
+        return "Book Not Found";
+    }
+    db.Books.Remove(b);
+    db.SaveChanges();
+    return "Book removed!";
+});
 
-app.MapGet("/weatherforecast", () =>
+
+app.MapGet("members/list", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    using var db = new LibraryDB();
+    return db.Members.ToList();
+
+});
+
+app.MapPost("members/Creat", (Member member) =>
+{
+    using var db = new LibraryDB();
+    db.Members.Add(member);
+    db.SaveChanges();
+    return "New Member Created";
+});
+app.MapPut("members/update/{id}", (int id, Member member) =>
+{
+    using var db = new LibraryDB();
+    var m = db.Members.Find(id);
+    if (m == null)
+    {
+        return "Member Not Found";
+    }
+    m.Firstname = member.Firstname;
+    m.Lastname = member.Lastname;
+    m.Gender = member.Gender;
+    db.SaveChanges();
+    return "مشخصات به روز رسانی شد";
+});
+
+app.MapDelete("members/remove/{id}", (int id) =>
+{
+    using var db = new LibraryDB();
+    var m = db.Members.Find(id);
+    if (m == null)
+    {
+        return "Member Not Found!";
+    }
+    db.Members.Remove(m);
+    db.SaveChanges();
+    return "Member Removed!";
+});
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
