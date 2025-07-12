@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using novin_library_backend.Enums;
 
-namespace novin_library_backend.Entities.Base
+namespace novin_library_backend.DTOs.Members
 {
-    public class Member : Thing
+    public class MemberAddDto
     {
-        public required string Firstname { get; set; }
-        public required string Lastname { get; set; }
-        public double NationalCode { get; set; }
+        public string? Firstname { get; set; }
+        public string? Lastname { get; set; }
+        public int NationalCode { get; set; }
         public int Phone { get; set; }
         public double Mobile { get; set; }
         public String? Address { get; set; }

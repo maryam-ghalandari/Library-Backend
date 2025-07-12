@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using novin_library_backend.DbContextes;
 
@@ -10,9 +11,11 @@ using novin_library_backend.DbContextes;
 namespace novin_library_backend.Migrations
 {
     [DbContext(typeof(LibraryDB))]
-    partial class LibraryDBModelSnapshot : ModelSnapshot
+    [Migration("20250711093652_W04041903")]
+    partial class W04041903
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
@@ -75,9 +78,6 @@ namespace novin_library_backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -91,15 +91,6 @@ namespace novin_library_backend.Migrations
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<double>("Mobile")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("NationalCode")
-                        .HasColumnType("REAL");
-
-                    b.Property<int>("Phone")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
