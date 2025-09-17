@@ -10,16 +10,17 @@ using novin_library_backend.DTOs.Common;
 using novin_library_backend.DTOs.Members;
 using novin_library_backend.Endpoints;
 using novin_library_backend.Entities.Base;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddCors();
-builder.Services.AddDbContext<LibraryDB>(options =>
-options.LogTo(Console.WriteLine));
+builder.Services.AddDbContext<LibraryDB>();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 app.UseCors(policy =>
 {
