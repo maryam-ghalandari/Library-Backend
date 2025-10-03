@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using novin_library_backend.DbContextes;
 
@@ -10,9 +11,11 @@ using novin_library_backend.DbContextes;
 namespace novin_library_backend.Migrations
 {
     [DbContext(typeof(LibraryDB))]
-    partial class LibraryDBModelSnapshot : ModelSnapshot
+    [Migration("20251003064051_W040710")]
+    partial class W040710
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");

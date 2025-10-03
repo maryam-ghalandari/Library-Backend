@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using novin_library_backend.DbContextes;
 using novin_library_backend.DTOs.Books;
+using novin_library_backend.DTOs.Borrows;
 using novin_library_backend.DTOs.Common;
 using novin_library_backend.DTOs.Members;
 using novin_library_backend.Endpoints;
@@ -32,5 +33,8 @@ app.UseCors(policy =>
 app.UseHttpsRedirection();
 app.MapBookEndpoints();
 app.MapMemberEndpoints();
+app.MapBorrowEndpoints();
+
+
 app.Run();
 
