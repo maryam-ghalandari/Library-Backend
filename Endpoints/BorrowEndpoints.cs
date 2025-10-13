@@ -17,7 +17,7 @@ namespace novin_library_backend.Endpoints
         public static void MapBorrowEndpoints(this WebApplication app)
         {
 
-            app.MapPost("borrows/creat", async Task<CommandResultDto> ([FromServices] LibraryDB db,
+            app.MapPost("borrows/create", async Task<CommandResultDto> ([FromServices] LibraryDB db,
            [FromBody] BorrowAddDto dto) =>
            {
                var book = await db.Books.FirstOrDefaultAsync(m => m.Guid == dto.BookGuid);
@@ -54,19 +54,17 @@ namespace novin_library_backend.Endpoints
             app.MapGet("borrows/list", async Task<List<BorrowListDto>> (
             [FromServices] LibraryDB db) =>
             {
-                var result = await db
+                return await db
                 .Borrows
                 .Include(m => m.Book)
                 .Include(m => m.Member)
                 .Select(m => new BorrowListDto
                 {
-                    Id = m.Guid,
-                    Book = m.Book,
-                    Member = m.Member,
-                    BorrowTime = m.BorrowTime,
-                    ReturnTime = m.ReturnTime
+                    BookTitle = m.Book.Title,
+                    Guid = m.Guid,
+                    MemberFirstname = m.Member.Firstname,
+                    MemberLastname = m.Member.Lastname
                 }).ToListAsync();
-                return result;
             });
         }
     }

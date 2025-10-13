@@ -8,10 +8,9 @@ namespace novin_library_backend.DTOs.Borrows
 {
     public class BorrowListDto
     {
-        public string? Id { get; set; }
-        public required Book Book { get; set; }
-        public required Member Member { get; set; }
-        public DateTime BorrowTime { get; set; }
-        public DateTime ReturnTime { get; set; }
+        public required string? Guid { get; set; }
+        public required string BookTitle { get; set; }
+        public required string MemberFirstname { get; set; }
+        public required string MemberLastname { get; set; }
     }
 }
